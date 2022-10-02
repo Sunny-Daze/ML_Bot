@@ -10,6 +10,7 @@ import tensorflow
 import random
 import json
 import pickle
+import wikipedia
 
 r=sr.Recognizer()
 engine = pyttsx3.init()
@@ -104,7 +105,6 @@ def bag_of_words(s, words):
 def listen():
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source,duration=1)
-        # r.energy_threshold()
         print("\nSay something : ")
         print('You : ', end=' ')
         audio= r.listen(source)
@@ -116,8 +116,19 @@ def listen():
     return rans
 
 def chat():
-    print("\n==============>  Bot Activated  <==============\n")
-    print('How would you like to Communicate with the bot?\nType 1 for text\nType 2 for audio')
+    print("\t\t\t      =================")
+    print("============================> ∥ Bot Activated ∥ <==================================")
+    print("\t\t\t      =================\n")
+    print('===================================================================================')
+    print('∥\t\t\t\tInstructions\t\t\t\t\t  ∥')
+    print("∥\t\t\t\t\t\t\t\t\t\t  ∥")
+    print('∥\t-> To provide input you can use text aur audio.\t\t\t\t  ∥')
+    print("∥\t-> You can switch the input method by typing 'switch' as a command.\t  ∥")
+    print("∥\t-> You can add 'google' in command to google stuff.\t\t\t  ∥")
+    print("∥\t-> You can type or say 'turn off' to deacivate the bot.\t\t\t  ∥")
+    print('===================================================================================')
+
+    print('\nHow would you like to Communicate with the bot?\nType 1 for text\nType 2 for audio')
     print('--->', end=' ')
     input_way = int(input())
     while True:
@@ -125,16 +136,24 @@ def chat():
             print('\nType somthing : ')
             inp = input("You : ")
             if inp.lower() == "turn off":
-                print("\n==============>  Bot Deactivated  <==============\n")
+                print("\n=============================>  Bot Activated  <===================================\n")
                 break
         elif input_way == 2:
             user_input = listen()
             inp = user_input
             print(user_input)
             if inp.lower() == "turn off":
-                print("\n==============>  Bot Deactivated  <==============\n")
+                print("\n=============================>  Bot Activated  <===================================\n")
                 break
-            
+        
+        if 'google' in inp.lower():
+                filtered_inp = inp.replace('google', '')
+                info = wikipedia.summary(filtered_inp, sentences=3)
+                print('Bot : ', info)
+                engine.say(info)
+                engine.runAndWait()
+                continue
+
         if(inp == 'switch'):
             if(input_way == 1):
                 input_way = 2
@@ -144,7 +163,7 @@ def chat():
                 input_way = 1
                 print('\n-->Switched to text input!')
                 continue
-
+        
         results = model.predict([bag_of_words(inp, words)])[0]
         results_index = numpy.argmax(results)
         tag = labels[results_index]

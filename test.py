@@ -1,3 +1,14 @@
-import wikipedia  
-print('hel')
-print(wikipedia.summary("Rohit Sharma", sentences=4))  
+print("\t\t\t      =================")
+print("============================> ∥ Bot Activated ∥ <==================================")
+print("\t\t\t      =================\n")
+print('===================================================================================')
+print('∥\t\t\t\tInstructions\t\t\t\t\t  ∥')
+print("∥\t\t\t\t\t\t\t\t\t\t  ∥")
+print('∥\t-> To provide input you can use text aur audio.\t\t\t\t  ∥')
+print("∥\t-> You can switch the input method by typing 'switch' as a command.\t  ∥")
+print("∥\t-> You can add 'google' in command to google stuff.\t\t\t  ∥")
+print("∥\t-> You can type or say 'turn off' to deacivate the bot.\t\t\t  ∥")
+print('===================================================================================')
+
+print('\nHow would you like to Communicate with the bot?\nType 1 for text\nType 2 for audio')
+print('--->', end=' ')
