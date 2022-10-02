@@ -106,7 +106,7 @@ def listen():
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source,duration=1)
         print("\nSay something : ")
-        print('You : ', end=' ')
+        print('You -> ', end=' ')
         audio= r.listen(source)
         try:
             text = r.recognize_google(audio)
@@ -131,19 +131,24 @@ def chat():
     print('\nHow would you like to Communicate with the bot?\nType 1 for text\nType 2 for audio')
     print('--->', end=' ')
     input_way = int(input())
+
     while True:
         if input_way == 1:
             print('\nType somthing : ')
-            inp = input("You : ")
+            inp = input("You -> ")
             if inp.lower() == "turn off":
-                print("\n=============================>  Bot Activated  <===================================\n")
+                print("\t\t\t      ====================")
+                print("============================> ∥  Bot Deactivated ∥ <==================================")
+                print("\t\t\t      ====================")
                 break
         elif input_way == 2:
             user_input = listen()
             inp = user_input
             print(user_input)
             if inp.lower() == "turn off":
-                print("\n=============================>  Bot Activated  <===================================\n")
+                print("\t\t\t      ====================")
+                print("============================> ∥  Bot Deactivated ∥ <==================================")
+                print("\t\t\t      ====================")
                 break
         
         if 'google' in inp.lower():
@@ -157,11 +162,11 @@ def chat():
         if(inp == 'switch'):
             if(input_way == 1):
                 input_way = 2
-                print('\n-->Switched to audio input!')
+                print('\n==>Switched to audio input!')
                 continue
             elif(input_way == 2):
                 input_way = 1
-                print('\n-->Switched to text input!')
+                print('\n==>Switched to text input!')
                 continue
         
         results = model.predict([bag_of_words(inp, words)])[0]
@@ -173,11 +178,11 @@ def chat():
                 if tg['tag'] == tag:
                     responses = tg['responses']
             ans = random.choice(responses)
-            print('Bot : ', ans)
+            print('Bot -> ', ans)
             engine.say(ans)
             engine.runAndWait()
         else:
-            print("Bot : I didn't get that, try again.")
+            print("Bot -> I didn't get that, try again.")
             engine.say("I didn't get that, try again.")
             engine.runAndWait()
 
