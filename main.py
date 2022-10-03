@@ -166,7 +166,7 @@ def chat():
                 continue
             elif(input_way == 2):
                 input_way = 1
-                print('\n==>Switched to text input!')
+                print('\n==> Switched to text input!')
                 continue
         
         results = model.predict([bag_of_words(inp, words)])[0]
